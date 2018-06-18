@@ -1,0 +1,16 @@
+{
+  "name": "kedion_ml_api",
+  "version": "1.0.0",
+  "description": "back end machine learning for Kedion",
+  "main": "connect.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sean McClure",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "~1.0.1",
+    "express": "~4.0.0",
+    "util": "^0.10.3"
+  }
+}

@@ -1,0 +1,16 @@
+version: '3'
+services:
+  r_ml:
+    # builds R_ML Dockerfile
+    build: ./r_ml
+    ports:
+     - "9191:9191"
+    volumes:
+     - /from_your_root/data:/app/data
+  python_ml:
+    # builds Python_ML Dockerfile
+    build: ./python_ml
+    ports:
+      - "8181:8181"
+    volumes:
+     - /from_your_root/data:/app/data
