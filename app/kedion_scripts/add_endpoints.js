@@ -466,9 +466,9 @@
 
  function check_if_checked(choice) {
      if (choice == 'image') {
-         return (document.getElementById($('.check_img').find('input').attr('id')).checked)
+         return (document.getElementById($('.check_img').attr('id')).checked)
      }
      if (choice == 'data') {
-         return (document.getElementById($('.check_data').find('input').attr('id')).checked)
+         return (document.getElementById($('.check_data').attr('id')).checked)
      }
  }
