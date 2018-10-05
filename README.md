@@ -1,7 +1,7 @@
 
 # MACHINE FLOW  
   
-Machine Flow is an application for GUI-fying machine learning workflows to rapidly discover viable pipelines. Machine Flow keeps track of data dependencies using dependency graphs (created dynamically on the front-end). You can view the tutorial-demo [here](https://vimeo.com/274980432).  
+Machine Flow is an application for GUI-fying machine learning workflows to rapidly discover viable pipelines. Machine Flow keeps track of data dependencies using dependency graphs (created dynamically on the front-end).
   
 ## Getting Started  
   
