@@ -243,7 +243,7 @@ Machine Flow versions are released using GitHub Releases.
   
 ## Authors  
   
-* **Sean McClure** - *Creator* - [World of Data Science](http://worldofdatascience.com)  
+* **Sean McClure** - *Creator*  
   
 ## License  
   
