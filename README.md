@@ -222,14 +222,14 @@ You can let Machine Flow know where to read and write results by specifying the 
   
 ## Built With  
   
-* [Kedion](http://www.worldofdatascience.com/documentation_kedion.html) - Rapid front-end prototyping library  
+* Azle - Rapid front-end prototyping library  
 * Node.js/Express - Web Framework  
   
   
 ## Contributing  
   
 FRONT-END  
-Please familiarize yourself with the [Kedion](http://www.worldofdatascience.com/documentation_kedion.html) library before submitting pull requests. Kedion injects all HTML/CSS/JS on-the-fly for fully dynamic web applications.  
+Please familiarize yourself with the Azle library before submitting pull requests.  
   
 BACK-END  
 Back-end functionality is written in Node.js/Express, Python and R.  
