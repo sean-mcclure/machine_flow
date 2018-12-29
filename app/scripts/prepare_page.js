@@ -1,27 +1,22 @@
 load_fonts({
     "font": "Titillium+Web"
 })
-
 load_fonts({
     "font": "Titan+One"
 })
-
 style_body({
     "background": "#dedede",
     "font-family": "Titillium Web",
     "min-width": "1200px"
 })
-
 add_navigation_bar({
     "this_class": "my_nav"
 })
-
 style_navigation_bar('my_nav', 1, {
     "height": "95px",
     "width": "100%",
     "padding": 0
 })
-
 add_layout('my_nav', 1, {
     "this_class": "nav_layout",
     "cell_class": "nav_layout_cells",
@@ -30,25 +25,14 @@ add_layout('my_nav', 1, {
     "number_of_columns": 3
 })
 style_layout('nav_layout', 1, {
-    "height": "60px",
+    "height": "95px",
     "column_widths": ['20%', '55%', '25%'],
     "border": 0
 })
 style_layout('nav_layout_cells', 3, {
     "halign": "center"
 })
-
 move_up_down('my_nav', 1, 'up')
-
-add_image('nav_layout_cells', 1, {
-    "this_class": "logo",
-    "image_path": "images/logo.png"
-})
-style_image('logo', 1, {
-    "width": "230px",
-    "padding": "8px"
-})
-
 add_text('nav_layout_cells', 2, {
     "this_class": "title",
     "text": "MACHINE FLOW"
@@ -61,7 +45,6 @@ style_text('title', 1, {
     "font-family": "Titan One",
     "text-shadow": "2px 2px 0px rgba(66, 255, 240, 0.96)"
 })
-
 add_layout('nav_layout_cells', 3, {
     "this_class": "hold_buttons",
     "cell_class": "hold_buttons_cells",
@@ -75,82 +58,66 @@ style_layout('hold_buttons', 1, {
     "margin-right": "10px",
     "border": 0
 })
-
 add_button('hold_buttons_cells', 1, {
     "this_class": "add_node_button",
     "text": "ADD NODE"
 })
-
 style_button('add_node_button', 1, {
     "background": "#bae1ff",
     "color": "darkslategrey"
 })
-
 add_event('add_node_button', 1, {
     "type": "click",
     "function": "add_node()"
 })
-
 add_button('hold_buttons_cells', 2, {
     "this_class": "endpoints_button",
     "text": "ENDPOINTS"
 })
-
 style_button('endpoints_button', 1, {
     "background": "#ffdfba",
     "color": "darkslategrey"
 })
-
 add_event('endpoints_button', 1, {
     "type": "click",
     "function": "open_endpoints()"
 })
-
 add_button('hold_buttons_cells', 3, {
     "this_class": "save_button",
     "text": "SAVE"
 })
-
 style_button('save_button', 1, {
     "background": "#ffffba",
     "color": "darkslategrey"
 })
-
 add_event('save_button', 1, {
     "type": "click",
     "function": "save_workflow()"
 })
-
 add_button('hold_buttons_cells', 4, {
     "this_class": "load_button",
     "text": "LOAD"
 })
-
 style_button('load_button', 1, {
     "background": "#baffc9",
     "color": "darkslategrey"
 })
-
 add_event('load_button', 1, {
     "type": "click",
     "function": "pop_reader()"
 })
-
 add_button('hold_buttons_cells', 5, {
     "this_class": "new_button",
     "text": "NEW"
 })
-
 style_button('new_button', 1, {
     "background": "#c0b7ff",
     "color": "darkslategrey"
 })
-
 add_event('new_button', 1, {
     "type": "click",
     "function": "new_workflow(); animate_element('new_button', 1, {'type' : 'spin', 'speed' : 300})"
 })
-
 add_icon('hold_buttons_cells', 6, {
     "this_class": "open_settings",
     "icon_class": "fa-cog"
@@ -161,7 +128,6 @@ style_icon('open_settings', 1, {
     "font-size": "30px",
     "margin-right": "-4px"
 })
-
 add_event('open_settings', 1, {
     "type": "click",
     "function": `
@@ -226,8 +192,6 @@ style_input('result_path_input', 1, {
 })
 `
 })
-
-
 add_navigation_bar({
     "this_class": "second_nav_for_slider"
 })
@@ -237,7 +201,6 @@ style_navigation_bar('second_nav_for_slider', 1, {
     "background": "white",
     "padding": 0
 })
-
 add_layout('second_nav_for_slider', 1, {
     "this_class": "slider_layout",
     "cell_class": "slider_layout_cells",
@@ -250,7 +213,6 @@ style_layout('slider_layout', 1, {
     "width": "700px",
     "border": 0
 })
-
 add_text('slider_layout_cells', 1, {
     "this_class": "slider_title",
     "text": "WORKFLOW HEIGHT<br>"
@@ -271,7 +233,6 @@ add_event('slide_d3_height', 1, {
     "type": "change",
     "function": "localStorage.setItem('tree_height_from_slider', this.value); setTimeout(function() {location.reload()}, 400)"
 })
-
 add_text('slider_layout_cells', 2, {
     "this_class": "slider_title_w",
     "text": "WORKFLOW WIDTH<br>"
@@ -292,11 +253,10 @@ add_event('slide_d3_height_w', 1, {
     "type": "change",
     "function": "localStorage.setItem('tree_width_from_slider', this.value); setTimeout(function() {location.reload()}, 400)"
 })
-
 hold_paths = {
-"read_path" : "../data/",
-"write_path" : "../data/",
-"result_path" : "../data/"
+    "read_path": "../data/",
+    "write_path": "../data/",
+    "result_path": "../data/"
 }
 
 function save_paths() {
@@ -304,7 +264,6 @@ function save_paths() {
     hold_paths['write_path'] = listen_for_value('write_path_input', 1)
     hold_paths['result_path'] = listen_for_value('result_path_input', 1)
 }
-
 // enter key
 function enable_enter_key() {
     $(document).keypress(function(e) {
@@ -319,9 +278,7 @@ function enable_enter_key() {
 function disable_enter_key() {
     $(document).off("keypress")
 }
-
 enable_enter_key();
-
 $(document).on('click', function(e) {
     clicked_id = e.target.id;
     if (e.target.id != '') {
@@ -333,7 +290,6 @@ $(document).on('click', function(e) {
         }
     }
 });
-
 
 function fill_fields() {
     $('.read_path_input').val('../data/')

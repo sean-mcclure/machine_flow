@@ -1,4 +1,5 @@
 function draw_data() {
+    if(listen_for_value('choose_dataset', 1) !== null) {
     remove_element('table_data', 1)
     read_local_file({
         "file_path": hold_paths['result_path'] + listen_for_value('choose_dataset', 1),
@@ -20,4 +21,5 @@ function draw_data() {
         })
         `
     })
+    }
 }

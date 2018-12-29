@@ -111,7 +111,6 @@ function pop_modal(text_id) {
                         style_input('node_title', 1, {
                             "border-style": "none none solid none",
                             "text-align": "center"
-                            //"text-transform" : "uppercase"
                         })
                         add_event('node_title', 1, {
                             "type": "change",

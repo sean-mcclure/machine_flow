@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
 <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.4/d3.js"></script>
-    <script src='http://code.jquery.com/jquery-3.3.1.min.js'></script>
-    <script src='http://worldofdatascience.com/kedion.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src='http://azlejs.com/v1/azle.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.4/d3.js'></script>
 </head>
 <html>
 
@@ -11,42 +11,36 @@
 </body>
 
 </html>
-
 <script>
-    // Kedion scripts
-    load_script('kedion_scripts/prepare_page.js')
-    load_script('kedion_scripts/setting_node.js')
-    load_script('kedion_scripts/add_endpoints.js')
-    load_script('kedion_scripts/call_endpoint.js')
-    load_script('kedion_scripts/draw_results.js')
-    load_script('kedion_scripts/save_workflow.js')
+
+    load_script('scripts/prepare_page.js')
+    load_script('scripts/setting_node.js')
+    load_script('scripts/add_endpoints.js')
+    load_script('scripts/call_endpoint.js')
+    load_script('scripts/draw_results.js')
+    load_script('scripts/save_workflow.js')
 
     if (JSON.parse(localStorage.getItem('node_data')) === null) {
         var tree_node_data = {}
     } else {
         var tree_node_data = JSON.parse(localStorage.getItem('node_data'))
     }
-
     node_circles = JSON.parse(localStorage.getItem('node_circles'))
     setTimeout(function() {
         assign_attributes_to_nodes(node_circles)
     }, 1000)
-
     node_paths = JSON.parse(localStorage.getItem('node_paths'))
     setTimeout(function() {
         assign_saved_paths(node_paths)
     }, 1000)
-
     node_endpoints = JSON.parse(localStorage.getItem('node_endpoints'))
     setTimeout(function() {
         assign_saved_endpoints(node_endpoints)
     }, 1000)
-
     node_parameters = JSON.parse(localStorage.getItem('node_parameters'))
     setTimeout(function() {
         assign_saved_parameters(node_parameters)
     }, 1000)
-
     if (localStorage.getItem('tree_height_from_slider') != null) {
         tree_height_from_slider = localStorage.getItem('tree_height_from_slider');
         setTimeout(function() {
@@ -58,7 +52,6 @@
     } else {
         tree_height_from_slider = 500
     }
-
     if (localStorage.getItem('tree_width_from_slider') != null) {
         tree_width_from_slider = localStorage.getItem('tree_width_from_slider');
         setTimeout(function() {
@@ -70,7 +63,6 @@
     } else {
         tree_width_from_slider = 1400
     }
-
     var margin = {
             top: 20,
             right: 90,
@@ -79,7 +71,6 @@
         },
         width = tree_width_from_slider - margin.left - margin.right,
         height = tree_height_from_slider - margin.top - margin.bottom;
-
     // append the svg object to the body of the page
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
@@ -89,47 +80,36 @@
     attr("height", height + margin.top + margin.bottom).
     append("g").
     attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
     var i = 0,
         duration = 500,
         root;
-
     // declares a tree layout and assigns the size
     var treemap = d3.tree().size([height, width]);
-
     // Assigns parent, children, height, depth
     root = d3.hierarchy(tree_node_data, function(d) {
         return d.children;
     });
     root.x0 = height / 2;
     root.y0 = 0;
-
     update(root);
-
     var selected = null;
 
     function update(source) {
-
         // Assigns the x and y position for the nodes
         var treeData = treemap(root);
-
         // Compute the new tree layout.
         var nodes = treeData.descendants(),
             links = treeData.descendants().slice(1);
-
         // Normalize for fixed-depth.
         nodes.forEach(function(d) {
             d.y = d.depth * 180
         });
-
         // ### LINKS
-
         // Update the links...
         var link = svg.selectAll('line.link').
         data(links, function(d) {
             return d.id;
         });
-
         // Enter any new links at the parent's previous position.
         var linkEnter = link.enter().
         append('line').
@@ -149,9 +129,7 @@
         attr('y2', function(d) {
             return source.x0;
         });
-
         var linkUpdate = linkEnter.merge(link);
-
         linkUpdate.transition().
         duration(duration).
         attr('x1', function(d) {
@@ -166,7 +144,6 @@
         attr('y2', function(d) {
             return d.x;
         });
-
         // Transition back to the parent element position
         linkUpdate.transition().
         duration(duration).
@@ -182,7 +159,6 @@
         attr('y2', function(d) {
             return d.x;
         });
-
         // Remove any exiting links
         var linkExit = link.exit().
         transition().
@@ -200,15 +176,11 @@
             return source.y;
         }).
         remove();
-
         // ### CIRCLES
-
         // Update the nodes...
-        var node = svg.selectAll('g.node')
-            .data(nodes, function(d) {
-                return d.id || (d.id = ++i);
-            });
-
+        var node = svg.selectAll('g.node').data(nodes, function(d) {
+            return d.id || (d.id = ++i);
+        });
         // Enter any new modes at the parent's previous position.
         var nodeEnter = node.enter().
         append('g').
@@ -217,7 +189,6 @@
             return "translate(" + source.y0 + "," + source.x0 + ")";
         }).
         on('click', click);
-
         // Add Circle for the nodes
         nodeEnter.append('circle').
         attr('class', 'node').
@@ -245,68 +216,51 @@
         }).
         attr('r', 10).
         style("fill", function(d) {
-                return "#33AADE";
+            return "#33AADE";
+        }).attr('id', function() {
+            return ('node_' + makeid())
+        }).on("click", function(d) {
+            var selected_circles = d3.select(this);
+            selected_id = selected_circles._groups[0][0].id;
+            animate_element('node', get_target_instance(selected_id), {
+                "type": "rubberBand"
             })
-            .attr('id', function() {
-                return ('node_' + makeid())
+            delay_event({
+                "function": "$('#' + selected_id).css('fill', 'hotpink'); $('circle').css('opacity', 1)"
             })
-
-            .on("click", function(d) {
-                var selected_circles = d3.select(this);
-                selected_id = selected_circles._groups[0][0].id;
-                animate_element('node', get_target_instance(selected_id), {
-                    "type": "rubberBand"
-                })
-                delay_event({
-                    "function": "$('#' + selected_id).css('fill', 'hotpink'); $('circle').css('opacity', 1)"
-                })
-                //console.log('selected_id: ' + selected_id)
-
-            });
-
-
-        nodeEnter.append("text")
-            .attr("text-anchor", function(d) {
-                return d.children || d._children ? "middle" : "middle";
-            })
-            .attr("y", -20)
-            .text(function(d, i) {
-                if (i == 0) {
-                    return ('WORKFLOW')
+            //console.log('selected_id: ' + selected_id)
+        });
+        nodeEnter.append("text").attr("text-anchor", function(d) {
+            return d.children || d._children ? "middle" : "middle";
+        }).attr("y", -20).text(function(d, i) {
+            if (i == 0) {
+                return ('WORKFLOW')
+            } else {
+                if (d.depth == 1) {
+                    return ('ADD DATA...')
                 } else {
-                    if (d.depth == 1) {
-                        return ('ADD DATA...')
-                    } else {
-                        return ('ADD TASK...')
-                    }
+                    return ('ADD TASK...')
                 }
-            })
-            .style('font-family', 'Titillium Web')
-            .style('cursor', function(d, i) {
-                if (i == 0) {
-                    return ('auto')
-                } else {
-                    return ('pointer')
-                }
-            })
-            .attr('id', function() {
-                return ('text_' + makeid())
-            })
-            .on("click", function() {
-                pop_modal(this.id);
-                $('circle').css('opacity', 1);
-            })
-
-
+            }
+        }).style('font-family', 'Titillium Web').style('cursor', function(d, i) {
+            if (i == 0) {
+                return ('auto')
+            } else {
+                return ('pointer')
+            }
+        }).attr('id', function() {
+            return ('text_' + makeid())
+        }).on("click", function() {
+            pop_modal(this.id);
+            $('circle').css('opacity', 1);
+        })
         var nodeUpdate = nodeEnter.merge(node);
-
         // Transition to the proper position for the node
         nodeUpdate.transition().
         duration(duration).
         attr("transform", function(d) {
             return "translate(" + d.y + "," + d.x + ")";
         });
-
         // Update the node attributes and style
         nodeUpdate.select('circle.node').
         attr('r', 10).
@@ -314,7 +268,6 @@
             return "#33AADE";
         }).
         attr('cursor', 'pointer');
-
         // Remove any exiting nodes
         var nodeExit = node.exit().
         transition().
@@ -323,16 +276,13 @@
             return "translate(" + source.y + "," + source.x + ")";
         }).
         remove();
-
         // On exit reduce the node circles size to 0
         nodeExit.select('circle').attr('r', 0);
-
         // Store the old positions for transition.
         nodes.forEach(function(d) {
             d.x0 = d.x;
             d.y0 = d.y;
         });
-
         // Toggle children on click.
         function click(d) {
             selected = d;
@@ -354,14 +304,12 @@
             newNode.height = selected.height - 1;
             newNode.parent = selected;
             newNode.id = 'node_' + makeid();
-
             if (!selected.children) {
                 selected.children = [];
                 selected.data.children = [];
             }
             selected.children.push(newNode);
             selected.data.children.push(newNode.data);
-
             update(selected);
         } else {
             add_modal({
