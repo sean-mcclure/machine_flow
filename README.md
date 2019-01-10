@@ -222,7 +222,7 @@ You can let Machine Flow know where to read and write results by specifying the 
   
 ## Built With  
   
-* Azle - Rapid front-end prototyping library  
+* [Azle](http://azlejs.com) - Rapid front-end prototyping library
 * Node.js/Express - Web Framework  
   
   
